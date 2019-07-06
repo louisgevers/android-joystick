@@ -20,6 +20,22 @@ class JoystickView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     /**
+     * This interface represents the callback to be invoked when the
+     * user interacts with the joystick.
+     */
+    interface OnMoveListener {
+
+        /**
+         * Callback function when the user interacts with the joystick.
+         *
+         * @param angle Angle at which the stick is
+         * @param strength Strength (or relative distance) of the stick
+         * @param direction Direction of the stick, corresponding to the [angle]
+         */
+        fun onMove(angle: Int, strength: Int, direction: Joystick.Direction)
+    }
+
+    /**
      * The joystick object to handle the logic.
      */
     private val joystick = Joystick(100, 0, 0, 0.2)
@@ -33,6 +49,11 @@ class JoystickView @JvmOverloads constructor(
      * The controls object to move the joystick.
      */
     private val controls = JoystickControls(joystick)
+
+    /**
+     * Listener object for processing user interaction with the joystick.
+     */
+    var onMoveListener: OnMoveListener? = null
 
     /**
      * Draws the joystick's container and stick at their specified
@@ -80,6 +101,7 @@ class JoystickView @JvmOverloads constructor(
      */
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event?.let { controls.handleEvent(it) }
+        onMoveListener?.onMove(joystick.angle, joystick.strength, joystick.direction)
         invalidate()
         return true
     }
