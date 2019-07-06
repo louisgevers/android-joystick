@@ -78,10 +78,10 @@ class Joystick(var radius: Int, var centerX: Int, var centerY: Int, var stickRat
      */
     private fun computeAngle(): Int {
         val angle = Math.toDegrees(atan2(
-                stickY.toDouble() - centerY.toDouble(),
+                centerY.toDouble() - stickY.toDouble(),
                 stickX.toDouble() - centerX.toDouble())
         )
-        return if (angle < 360) {
+        return if (angle < 0) {
             angle.toInt() + 360
         } else {
             angle.toInt()
