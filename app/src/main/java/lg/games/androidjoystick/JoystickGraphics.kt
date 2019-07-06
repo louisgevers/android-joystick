@@ -89,7 +89,7 @@ class JoystickGraphics(private val joystick: Joystick) {
         joystick.centerY = height / 2
         joystick.stickX = joystick.centerX
         joystick.stickY = joystick.centerY
-        joystick.radius = min(width, height) / 2
+        joystick.radius = ((min(width, height) / 2) / (1 + joystick.stickRatio)).toInt()
     }
 
 }
