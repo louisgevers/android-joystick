@@ -84,7 +84,7 @@ class Joystick(var radius: Int, var centerX: Int, var centerY: Int, var stickRat
      *
      * @return The distance between the stick and the center of the container
      */
-    private fun computeDistance(): Int {
+    fun computeDistance(): Int {
         return sqrt(
             (stickX.toDouble() - centerX.toDouble()).pow(2) +
                 (stickY.toDouble() - centerY.toDouble()).pow(2)
