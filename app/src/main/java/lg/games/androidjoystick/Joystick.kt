@@ -21,6 +21,21 @@ import kotlin.math.sqrt
 class Joystick(var radius: Int, var centerX: Int, var centerY: Int, var stickRatio: Double) {
 
     /**
+     * Represents the different directions the stick can point towards.
+     */
+    enum class Direction {
+        CENTER,
+        NORTH,
+        NORTH_EAST,
+        EAST,
+        SOUTH_EAST,
+        SOUTH,
+        SOUTH_WEST,
+        WEST,
+        NORTH_WEST
+    }
+
+    /**
      * X coordinate of the stick.
      */
     var stickX: Int = centerX
@@ -49,6 +64,12 @@ class Joystick(var radius: Int, var centerX: Int, var centerY: Int, var stickRat
      */
     val stickRadius: Int
         get() = computeStickRadius()
+
+    /**
+     * Direction towards which the stick is pointing.
+     */
+    val direction: Direction
+        get() = determineDirection()
 
     /**
      * Computes and returns the angle of the stick in a 360 degree range.
@@ -101,6 +122,28 @@ class Joystick(var radius: Int, var centerX: Int, var centerY: Int, var stickRat
             radius
         } else {
             res.toInt()
+        }
+    }
+
+    /**
+     * Determines the direction of the stick given the angle.
+     *
+     * @return The direction of the stick
+     */
+    private fun determineDirection(): Direction {
+        if (strength == 0) {
+            return Direction.CENTER
+        }
+        return when (angle) {
+            in 0..22, in 338..360 -> Direction.EAST
+            in 23..67 -> Direction.NORTH_EAST
+            in 68..112 -> Direction.NORTH
+            in 113..157 -> Direction.NORTH_WEST
+            in 158..202 -> Direction.WEST
+            in 203..247 -> Direction.SOUTH_WEST
+            in 248..292 -> Direction.SOUTH
+            in 293..337 -> Direction.SOUTH_EAST
+            else -> Direction.CENTER
         }
     }
 
