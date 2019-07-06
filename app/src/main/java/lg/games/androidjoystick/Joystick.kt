@@ -13,11 +13,12 @@ import kotlin.math.sqrt
  * @property radius the radius of the joystick container
  * @property centerX the x coordinate of the center of the joystick container
  * @property centerY the y coordinate of the center of the joystick container
+ * @property stickRatio ratio of the radius of the stick compared to the ratio of the container.
  * @constructor Creates a joystick storing the given position and radius
  *
  * @author Louis Gevers
  */
-class Joystick(var radius: Int, var centerX: Int, var centerY: Int) {
+class Joystick(var radius: Int, var centerX: Int, var centerY: Int, var stickRatio: Double) {
 
     /**
      * X coordinate of the stick.
@@ -41,6 +42,13 @@ class Joystick(var radius: Int, var centerX: Int, var centerY: Int) {
      */
     val strength: Int
         get() = computeStrength()
+
+    /**
+     * Radius of the stick. This value is always less or equal to
+     * [radius].
+     */
+    val stickRadius: Int
+        get() = computeStickRadius()
 
     /**
      * Computes and returns the angle of the stick in a 360 degree range.
@@ -81,6 +89,19 @@ class Joystick(var radius: Int, var centerX: Int, var centerY: Int) {
             (stickX.toDouble() - centerX.toDouble()).pow(2) +
                 (stickY.toDouble() - centerY.toDouble()).pow(2)
         ).toInt()
+    }
+
+    /**
+     * Compute the radius of the stick based on the [stickRatio] and
+     * the [radius] of the container.
+     */
+    private fun computeStickRadius(): Int {
+        val res = stickRatio * radius
+        return if (res > radius) {
+            radius
+        } else {
+            res.toInt()
+        }
     }
 
 }
