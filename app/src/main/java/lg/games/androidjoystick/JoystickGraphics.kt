@@ -27,20 +27,12 @@ class JoystickGraphics(private val joystick: Joystick) {
     /**
      * Paint object used to paint the container of the joystick.
      */
-    private val containerPaint = Paint()
+    val containerPaint = Paint()
 
     /**
      * Paint object used to paint the stick of the joystick.
      */
-    private val stickPaint = Paint()
-
-    /**
-     * Sets up the paint objects.
-     */
-    init {
-        containerPaint.color = Color.BLUE
-        stickPaint.color = Color.RED
-    }
+    val stickPaint = Paint()
 
     /**
      * Draws the [joystick] on the given canvas.

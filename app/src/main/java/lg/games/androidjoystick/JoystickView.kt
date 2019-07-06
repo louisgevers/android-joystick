@@ -2,6 +2,7 @@ package lg.games.androidjoystick
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -38,7 +39,7 @@ class JoystickView @JvmOverloads constructor(
     /**
      * The joystick object to handle the logic.
      */
-    private val joystick = Joystick(100, 0, 0, 0.2)
+    private val joystick = Joystick(100, 0, 0, 0.3)
 
     /**
      * The graphics object to render the joystick.
@@ -54,6 +55,23 @@ class JoystickView @JvmOverloads constructor(
      * Listener object for processing user interaction with the joystick.
      */
     var onMoveListener: OnMoveListener? = null
+
+    /**
+     * Sets up the components and joystick with the supplied or default attributes.
+     */
+    init {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.JoystickView,
+            0, 0).apply {
+            try {
+                graphics.containerPaint.color = getColor(R.styleable.JoystickView_backgroundColor, Color.LTGRAY)
+                graphics.stickPaint.color = getColor(R.styleable.JoystickView_foregroundColor, Color.DKGRAY)
+            } finally {
+                recycle()
+            }
+        }
+    }
 
     /**
      * Draws the joystick's container and stick at their specified
