@@ -1,7 +1,6 @@
 package lg.games.androidjoystick
 
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.view.View
 import kotlin.math.min
@@ -30,9 +29,31 @@ class JoystickGraphics(private val joystick: Joystick) {
     val containerPaint = Paint()
 
     /**
+     * Paint object used to paint the border of the container of the joystick.
+     */
+    val containerBorderPaint = Paint()
+
+    /**
      * Paint object used to paint the stick of the joystick.
      */
     val stickPaint = Paint()
+
+    /**
+     * Paint object used to paint the border of the stick of the joystick.
+     */
+    val stickBorderPaint = Paint()
+
+    /**
+     * Initialize the paint objects.
+     */
+    init {
+        containerBorderPaint.style = Paint.Style.STROKE
+        containerBorderPaint.isAntiAlias = true
+        containerBorderPaint.isDither = true
+        stickBorderPaint.style = Paint.Style.STROKE
+        stickBorderPaint.isAntiAlias = true
+        stickBorderPaint.isDither = true
+    }
 
     /**
      * Draws the [joystick] on the given canvas.
@@ -46,10 +67,21 @@ class JoystickGraphics(private val joystick: Joystick) {
             joystick.radius.toFloat(),
             containerPaint)
         canvas.drawCircle(
+            joystick.centerX.toFloat(),
+            joystick.centerY.toFloat(),
+            joystick.radius.toFloat() - containerBorderPaint.strokeWidth / 2,
+            containerBorderPaint
+        )
+        canvas.drawCircle(
             joystick.stickX.toFloat(),
             joystick.stickY.toFloat(),
             joystick.stickRadius.toFloat(),
             stickPaint)
+        canvas.drawCircle(
+            joystick.stickX.toFloat(),
+            joystick.stickY.toFloat(),
+            joystick.stickRadius.toFloat() - stickBorderPaint.strokeWidth / 2,
+            stickBorderPaint)
     }
 
     /**

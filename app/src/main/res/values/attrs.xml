@@ -3,6 +3,10 @@
     <declare-styleable name="JoystickView">
         <attr name="stickRatio" format="float" />
         <attr name="backgroundColor" format="color" />
+        <attr name="backgroundBorderColor" format="color" />
+        <attr name="backgroundBorderWidth" format="float" />
         <attr name="foregroundColor" format="color" />
+        <attr name="foregroundBorderColor" format="color" />
+        <attr name="foregroundBorderWidth" format="float" />
     </declare-styleable>
 </resources>

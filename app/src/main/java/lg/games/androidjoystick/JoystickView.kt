@@ -66,8 +66,14 @@ class JoystickView @JvmOverloads constructor(
             0, 0).apply {
             try {
                 joystick.stickRatio = getFloat(R.styleable.JoystickView_stickRatio, 0.3f).toDouble()
+
                 graphics.containerPaint.color = getColor(R.styleable.JoystickView_backgroundColor, Color.LTGRAY)
+                graphics.containerBorderPaint.color = getColor(R.styleable.JoystickView_backgroundBorderColor, Color.BLACK)
+                graphics.containerBorderPaint.strokeWidth = getFloat(R.styleable.JoystickView_backgroundBorderWidth, 2f)
+
                 graphics.stickPaint.color = getColor(R.styleable.JoystickView_foregroundColor, Color.DKGRAY)
+                graphics.stickBorderPaint.color = getColor(R.styleable.JoystickView_foregroundBorderColor, Color.TRANSPARENT)
+                graphics.stickBorderPaint.strokeWidth = getFloat(R.styleable.JoystickView_foregroundBorderWidth, 0f)
             } finally {
                 recycle()
             }
