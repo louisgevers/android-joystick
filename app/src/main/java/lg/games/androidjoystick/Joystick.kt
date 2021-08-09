@@ -36,6 +36,15 @@ class Joystick(var radius: Int, var centerX: Int, var centerY: Int, var stickRat
     }
 
     /**
+     * Represents the different behaviours of the stick.
+     */
+    enum class Behaviour {
+        Circular,
+        Horizontal,
+        Vertical,
+    }
+
+    /**
      * X coordinate of the stick.
      */
     var stickX: Int = centerX
@@ -44,6 +53,11 @@ class Joystick(var radius: Int, var centerX: Int, var centerY: Int, var stickRat
      * Y coordinate of the stick.
      */
     var stickY: Int = centerY
+
+    /**
+     * Behaviour of the stick.
+     */
+    var behavior: Behaviour = Behaviour.Circular
 
     /**
      * Angle of the stick compared to the container.

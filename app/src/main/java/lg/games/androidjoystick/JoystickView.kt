@@ -66,6 +66,11 @@ class JoystickView @JvmOverloads constructor(
             0, 0).apply {
             try {
                 joystick.stickRatio = getFloat(R.styleable.JoystickView_stickRatio, 0.3f).toDouble()
+                joystick.behavior = when(getInteger(R.styleable.JoystickView_behaviour, 0)){
+                    1 -> Joystick.Behaviour.Horizontal
+                    2 -> Joystick.Behaviour.Vertical
+                    else -> Joystick.Behaviour.Circular
+                }
 
                 graphics.containerPaint.color = getColor(R.styleable.JoystickView_backgroundColor, Color.LTGRAY)
                 graphics.containerPaint.alpha = getInt(R.styleable.JoystickView_backgroundAlpha, 125)
