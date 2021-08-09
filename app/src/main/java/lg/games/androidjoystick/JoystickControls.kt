@@ -26,8 +26,14 @@ class JoystickControls(private val joystick: Joystick) {
         if (event.action == MotionEvent.ACTION_UP) {
             resetPosition()
         } else {
-            joystick.stickX = event.x.toInt()
-            joystick.stickY = event.y.toInt()
+            joystick.stickX = when(joystick.behavior){
+                Joystick.Behaviour.Vertical -> joystick.centerX
+                else -> event.x.toInt()
+            }
+            joystick.stickY = when(joystick.behavior){
+                Joystick.Behaviour.Horizontal -> joystick.centerY
+                else -> event.y.toInt()
+            }
             val distance = joystick.computeDistance()
             if (distance > joystick.radius) {
                 capStickToBorder(distance)
